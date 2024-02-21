@@ -86,7 +86,6 @@ vim.diagnostic.config({
 
 vim.wo.foldmethod = 'expr'
 vim.wo.foldexpr = 'nvim_treesitter#foldexpr()'
-vim.cmd[[autocmd BufWinEnter * let &foldlevel = max(map(range(1, line('$')), 'foldlevel(v:val)'))]] --unfold everything when a file is opened
 
 vim.cmd([[
 set signcolumn=yes
@@ -197,6 +196,3 @@ vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 vim.keymap.set('n', '<leader>lf', builtin.quickfix, {})
-require("telescope").load_extension('find_template')
-vim.cmd[[nmap <C-n> <cmd>Telescope find_template<cr>]]
-vim.cmd[[nmap <C-s> <cmd>write<cr>]]
