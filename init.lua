@@ -10,7 +10,6 @@
 -- 	- compile
 -- 	- run
 -- 	- test
---
 
 
 --UI
@@ -44,4 +43,5 @@ function imap(shortcut, command)
   map('i', shortcut, command)
 end
 
-nmap(<C-s>, :w<CR>) --Ctrl+S to save
+nmap("<C-s>", ":w<CR>") --Ctrl+S to save
+imap("<C-s>", "<Esc>:w<CR>") --Ctrl+S to save
