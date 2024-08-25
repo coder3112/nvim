@@ -20,6 +20,9 @@ require "paq" {
 
 --UI
 
+vim.opt.splitbelow = true --:split opens buffer below. very useful for terminal stuff.
+vim.opt.splitright = true --:vsplit open buffer on right. more intuitive to me.
+
 -- Set line numbers. Current line is absolute, others are relative
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -35,3 +38,8 @@ vim.opt.signcolumn = "number"
 
 
 -- Keybinds
+-- Map leader to space
+vim.g.mapleader = " "
+
+vim.keymap.set("v", "y", "ygv<esc>") --After yanking in visual mode, cursor stays at end instead of jumping to beginning of selection.
+
