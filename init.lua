@@ -42,4 +42,6 @@ vim.opt.signcolumn = "number"
 vim.g.mapleader = " "
 
 vim.keymap.set("v", "y", "ygv<esc>") --After yanking in visual mode, cursor stays at end instead of jumping to beginning of selection.
+vim.keymap.set("n", "p", "p=`]") --Paste preserves indentation.
+vim.keymap.set("i", "<C-BS>", "<Esc>cvb", { }) --Ctrl-Backspace deletes previous word.
 
