@@ -1,17 +1,18 @@
 -- This is my ultimate config.
 --
 -- DONE: Package Manager
--- TODO: Treesitter
+-- DONE: Treesitter 
 -- TODO: Highlight TODO/DONE/FIX/BUG etc. Maybe come up with simple shell script to output/pretty print etc.
 -- TODO: LSP
 -- TODO: Snippets
 -- TODO: Project Management 
 -- 	- new files
--- 	- fzf
+-- 	- fzf DONE
 -- 	- compile
 -- 	- run
 -- 	- test
 --	- git
+--	- debug
 
 vim.o.expandtab = true -- expand tab input with spaces characters
 vim.o.smartindent = true -- syntax aware indentations for newline inserts
