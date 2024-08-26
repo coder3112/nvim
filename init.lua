@@ -15,8 +15,8 @@
 
 vim.o.expandtab = true -- expand tab input with spaces characters
 vim.o.smartindent = true -- syntax aware indentations for newline inserts
-vim.o.tabstop = 2 -- num of space characters per tab
-vim.o.shiftwidth = 2 -- spaces per indentation level
+vim.o.tabstop = 4 -- num of space characters per tab
+vim.o.shiftwidth = 4 -- spaces per indentation level
 
 require "paq" {
     "savq/paq-nvim", -- Let Paq manage itself
@@ -24,15 +24,29 @@ require "paq" {
     "stevearc/conform.nvim", --formatter
     "windwp/nvim-autopairs", -- close pairs of brackets,
     "stevearc/oil.nvim", -- file explorer that behaves like a neovim buffer.
-
+    "nvim-lua/plenary.nvim";     -- Dependency required by Telescope
+    "nvim-telescope/telescope.nvim"; -- The actual Telescope plugin
 }
 
 
 -- File Explorer: Oil
-require("oil").setup()
+require("oil").setup({
+    default_file_explorer = true,
+    view_options = {
+      show_hidden = true,
+      natural_order = true,
+      is_always_hidden = function(name, _)
+        return name == '..' or name == '.git'
+      end,
+    },
+    win_options = {
+      wrap = true,
+    }
+})
+
 
 --UI
-vim.cmd[[colorscheme torte]]
+vim.cmd[[colorscheme sorbet]]
 
 vim.opt.splitbelow = true --:split opens buffer below. very useful for terminal stuff.
 vim.opt.splitright = true --:vsplit open buffer on right. more intuitive to me.
@@ -71,4 +85,14 @@ vim.g.mapleader = " "
 vim.keymap.set("v", "y", "ygv<esc>") --After yanking in visual mode, cursor stays at end instead of jumping to beginning of selection.
 vim.keymap.set("n", "p", "p=`]") --Paste preserves indentation.
 vim.keymap.set("i", "<C-BS>", "<Esc>cvb", { }) --Ctrl-Backspace deletes previous word.
+
+
+-- Telescope Keybinds
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
+vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
+vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+vim.keymap.set('n', '<leader>ft', builtin.treesitter, {})
+
 
