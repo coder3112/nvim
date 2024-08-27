@@ -2,7 +2,7 @@
 --
 -- DONE: Package Manager
 -- DONE: Treesitter 
--- TODO: Highlight TODO/DONE/FIX/BUG etc. Maybe come up with simple shell script to output/pretty print etc.
+-- FIX: Highlight TODO/DONE/FIX/ only for comments. Maybe come up with simple shell script to output/pretty print etc.
 -- TODO: LSP
 -- TODO: Snippets
 -- TODO: Project Management 
@@ -11,7 +11,7 @@
 -- 	- compile
 -- 	- run
 -- 	- test
---	- git
+--	- git DONE Decided to just use terminal/tmux/zellij/tabs/tilingwm. in short, not a neovim solution, but external.
 --	- debug
 
 vim.o.expandtab = true -- expand tab input with spaces characters
@@ -47,7 +47,7 @@ require("oil").setup({
 
 
 --UI
-vim.cmd[[colorscheme sorbet]]
+vim.cmd[[colorscheme vim]]
 
 vim.opt.splitbelow = true --:split opens buffer below. very useful for terminal stuff.
 vim.opt.splitright = true --:vsplit open buffer on right. more intuitive to me.
@@ -60,6 +60,29 @@ vim.opt.signcolumn = "number"
 
 
 --Language
+--
+--------------HIGHLIGHT TODO-------------------------------------
+---NOTE: THIS DOES NOT RELOAD WHEN COLOURSCHEME CHANGES. SO NEED TO
+---      COMPLETELY RELOAD NEOVIM.
+-- Define highlight groups with different colours
+vim.api.nvim_set_hl(0, 'TodoTodo', { bg = 'blue', bold = true })
+vim.api.nvim_set_hl(0, 'TodoFix', { bg = 'red', bold = true })
+vim.api.nvim_set_hl(0, 'TodoDone', { bg = 'green', bold = true })
+
+-- Create an autocommand group
+vim.api.nvim_create_augroup('HighlightKeywords', { clear = true })
+
+-- Create an autocommand to add highlights when entering a window or Vim
+vim.api.nvim_create_autocmd({ 'WinEnter', 'VimEnter' }, {
+    group = 'HighlightKeywords',
+    callback = function()
+        vim.fn.matchadd('TodoTodo', 'TODO', -1)
+        vim.fn.matchadd('TodoFix', 'FIX', -1)
+        vim.fn.matchadd('TodoDone', 'DONE', -1)
+    end,
+})
+-----------------------------------------------------------------
+
 
 --Autoformating
 require("conform").setup({
